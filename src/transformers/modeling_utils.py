@@ -1362,6 +1362,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMix
         # Build new embeddings
         new_embeddings = nn.Embedding(new_num_tokens, old_embedding_dim)
         new_embeddings.to(old_embeddings.weight.device, dtype=old_embeddings.weight.dtype)
+        new_embeddings.weight.requires_grad = old_embeddings.weight.requires_grad
 
         # initialize all new embeddings (in particular added tokens)
         self._init_weights(new_embeddings)
